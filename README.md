@@ -1,6 +1,6 @@
 ### This is an experimental research processing code developed at Cooperative Institute for Research in the Atmosphere (CIRA)/ Colorado State University (CSU) to display NOAA GOES-R GLM Level-2 LCFA Group Energy/Count matched with GOES-R ABI sectors for CIRA's SLIDER, which includes realtime GLM L2 LCFA data download, post-processing to remap GLM data onto ABI pixels, and plot imgages using Noh's violet light color table (energy)/rainbow colors (count). All CSU/CIRA products are considered experimental products. See the Experimental Products Disclaimer below. 
 
-**Author: Yoo-Jeong (YJ) Noh, Yoo-Jeong.Noh@colostate.edu (developed in 2017-2018, release 17 Oct 2024 internally at CIRA, and updated to use newly a few Python codes replacing the original IDL codes on 30 July 2025)**
+**Author: Yoo-Jeong (YJ) Noh, Yoo-Jeong.Noh@colostate.edu (developed in 2017-2018, release 17 Oct 2024 internally at CIRA, and updated to use newly a few Python codes replacing the original IDL codes on 30 July 2025): https://doi.org/10.5281/zenodo.16623949 **
 
 **Main scripts for real time runs for CIRA's SLIDER (https://rammb-slider.cira.colostate.edu):**
 
