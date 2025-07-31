@@ -10,7 +10,7 @@
 
 read_write_GLM.py: Python code to extract group lat/lon/area/energy from the NetCDF L2 LCFA to text output (per min), which will be used for resampling (read_write_GLM.pro is the original IDL sample code converted; IDL 8.0/Python 3.8.8 or greater) 
 
-2) run_GLM_SLIDER_display.sh (for full-disk RadF and CONUS RadC)
+2) **run_GLM_SLIDER_display.sh** (for full-disk RadF and CONUS RadC)
 
 3) run_GLM_SLIDER_meso.sh (for two meso sectors with moving naviation info obtained from each ABI L1 netcdf file) - To be updated!
 
