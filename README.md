@@ -6,9 +6,9 @@
 
 **Main scripts for real time runs for CIRA's SLIDER (https://rammb-slider.cira.colostate.edu):**
 
-1) run_goes_glm_extract.sh: bash script to to extract group lat/lon/area/energy from the NetCDF L2 to text output, which you can run every min or modify as needed
+1) **run_goes_glm_extract.sh**: bash script to to extract group lat/lon/area/energy from the NetCDF L2 to text output, which you can run every min or modify as needed
 
-**read_write_GLM.pro**: IDL code to extract group lat/lon/area/energy from the NetCDF L2 LCFA to text output (per min), which will be used for resampling (read_write_GLM.py is a Python sample code converted from this IDL code; IDL 8.0/Python 3.8.8 or greater) 
+read_write_GLM.py: Python code to extract group lat/lon/area/energy from the NetCDF L2 LCFA to text output (per min), which will be used for resampling (read_write_GLM.pro is the original IDL sample code converted; IDL 8.0/Python 3.8.8 or greater) 
 
 2) run_GLM_SLIDER_display.sh (for full-disk RadF and CONUS RadC)
 
