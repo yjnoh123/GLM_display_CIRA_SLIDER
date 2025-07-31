@@ -22,8 +22,9 @@ Additionally, the naviation info files fixed for RadC (CONUS) and RadF (fulldisk
 
 2) resample_codes: Fortran codes for GLM-ABI remapping and processing/propagating energy/count from each centroid point over effective areas. Use "compile.sh" to compile and resample_glm_slider.exe will be found in one upper directory ../ (thanks to Kyle Hilburn and Natalie Tourville, CIRA/CSU, for their help to initiate the original remaping onto ABI domains)
 
-**NOAA GOES-R GLM L2 LCFA data info:  https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01527
-**NOAA GOES-R ABI L1b data info:  https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01501
+**NOAA GOES-R GLM L2 LCFA data info:  https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01527 **
+
+**NOAA GOES-R ABI L1b data info:  https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01501 **
 
 ### This program is free software. Distribution unlimited.This program is distributed WITHOUT ANY WARRANTY. 
 Please Note: This is an experimental research processing code developed at CIRA/CSU to display GLM Level-2 Group Energy/Count matched with GOES-R ABI sectors for CIRA's SLIDER.
