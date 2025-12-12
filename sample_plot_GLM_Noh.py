@@ -8,6 +8,7 @@ GOES-R GLM display
 
  Created by Y.J. Noh (CIRA/Colorado State University) Yoo-Jeong.Noh@colostate.edu (IDL, 02/27/2018)
  and modified (20241016) for gitlab release and test-converted in Python (Y.J. Noh 07/09/2025)
+ Modified for additional smoothing on energy (Y.J. Noh 12/11/2025)
  Tested with Python 3.8.8
 ####################################################################################
 """
@@ -16,8 +17,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from PIL import Image
-#from fortranfile import FortranFile
 from scipy.io import FortranFile
+from scipy.ndimage import uniform_filter
 import os
 import sys
 import argparse
@@ -41,6 +42,12 @@ def make_plot_image(data, minv, maxv, custom_cmap=None):
     data[~mask_pos] = 0.0
     img_scaled = np.clip(((data - minv) / (maxv - minv)) * 254, 0, 254).astype(np.uint8)
     if custom_cmap is not None:
+       # Boundary mask  and smoothing as shadow only for group energy
+        boundary = (img_scaled > 1) & (img_scaled < 50)
+        smoothing = uniform_filter(img_scaled, size=5, mode="nearest")  # smoothing edges
+        img_scaled[boundary] = smoothing[boundary]
+        img_shadow = process_shadow(img_scaled)
+        img_scaled = img_shadow        
         rgb = custom_cmap[img_scaled]
     else:
         cmap = plt.get_cmap('jet', 256)
@@ -58,9 +65,51 @@ def apply_alpha(img, img_scaled, transparency_min, edge_thresh):
     edge_indices = np.where(edge_mask)
     if edge_indices[0].size > 0:
         relative_vals = (img_scaled[edge_indices] - 3) / (edge_thresh - 3)
+        relative_vals = np.maximum(relative_vals, 0)
         transparency = ((245 - transparency_min) * (relative_vals ** 0.9)).astype(np.uint8) + transparency_min
         alpha[edge_indices] = transparency
     return np.dstack([red, grn, blu, alpha])
+
+def process_shadow(img):
+    img = img.astype(np.int16)   
+    ny, nx = img.shape           
+    shadow = np.where(img > 25)[0]   # linear indices
+    shadow0 = shadow.size
+
+    if shadow0 > 0:
+        row = shadow // nx
+        col = shadow % nx
+        img_tmp = np.zeros((ny, nx), dtype=np.int16)
+
+        for iy in range(-2, 3):
+            for ix in range(-2, 3):
+                rr = row + iy
+                cc = col + ix
+                valid = (rr >= 0) & (rr < ny) & (cc >= 0) & (cc < nx)
+                img_tmp[rr[valid], cc[valid]] = 12
+
+        for iy in range(-1, 2):
+            for ix in range(-1, 2):
+                rr = row + iy
+                cc = col + ix
+                valid = (rr >= 0) & (rr < ny) & (cc >= 0) & (cc < nx)
+                img_tmp[rr[valid], cc[valid]] = (
+                    img[row[valid], col[valid]] * 0.7
+                ).astype(int)
+
+        final_shadow = np.where(
+            (img_tmp > 1) &
+            (img < 10) &
+            ((img_tmp - img) > 5)
+        )[0]
+
+        if final_shadow.size > 0:
+            # Blend (IDL: (3*tmp + 2*img)/5)
+            img.flat[final_shadow] = (
+                img_tmp.flat[final_shadow] * 3 +
+                img.flat[final_shadow] * 2
+            ) // 5
+    return img
 
 ##########################################################################
 # Example input setup
@@ -140,8 +189,8 @@ for ifig in range(2):
             output /= 5
         elif domain == 'RadF':
             output /= 10
-        output[output < 0] = 0.0
         minv, maxv = -6.0, 0.6
+        output[output < 0] = minv
         varname = 'group_energy'
         transparency_min = 2
         edge_thresh_value = 170
