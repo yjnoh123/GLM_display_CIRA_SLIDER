@@ -164,7 +164,7 @@ do
 gyyyyjday_tmp=$(echo ${i##*/} | cut -f 3 -d '_')
 yyyy_tmp=$(echo ${gyyyyjday_tmp} | cut -c1-4)
 jday_tmp=$(echo ${gyyyyjday_tmp} | cut -c5-7)
-yyyymmdd_tmp=$(date -d "${yyyy_tmp}-01-01 +$(( ${jday_tmp} - 1 ))days" +%Y%m%d)
+yyyymmdd_tmp=$(date -d "${yyyy_tmp}-01-01 +$(( 10#${jday_tmp} - 1 ))days" +%Y%m%d)
 
 gstime_tmp=$(echo ${i##*/} | cut -f 4 -d '_')
 gstime=$(echo ${gstime_tmp} | cut -c2-7)
