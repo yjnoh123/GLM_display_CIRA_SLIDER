@@ -14,7 +14,7 @@ read_write_GLM.py: Python code to extract group lat/lon/area/energy from the Net
 
 3) run_GLM_SLIDER_meso.sh (for two meso sectors with moving naviation info obtained from each ABI L1 netcdf file) - To be updated!
 
-(Note to uesrs should change the sector and satellite number for GOES-16-19 in the scripts as needed and see the sample crontab time considering the input data ingest and processing time for each sector.)
+(Note to uesrs should change the sector and satellite number for GOES-16-19 in the scripts as needed and see the sample crontab time considering the input data ingest and processing time for each sector. (For instance, this script currently grabs all GLM L2 20-sec files between 1621-1626 UTC for ABI CONUS 1621 UTC)
 
 Additionally, the naviation info files fixed for RadC (CONUS) and RadF (fulldisk): ABI_Rad?_proj_*.txt and GLM limit boundary limit information files (glm_fulldisk_limits*.txt). Please note that the corresponding files should be symbolic-linked for the specific GOES satellite (GOES-E or GOES-W for GOES-16 - GOES-19). 
 
